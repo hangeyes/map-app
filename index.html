@@ -23,8 +23,8 @@
 	</head>
 	<body ng-controller="infoCtrl">
 		Nazwa: 
-		<select ng-model="selectedObject">
-			<option ng-repeat="(key, data) in objects" value="{{key}}">{{data.id}}</option>
+		<select ng-model="selectedObject" ng-change="changeLabels()">
+			<option ng-repeat="(key, data) in properties" value="{{key}}">{{key}}</option>
 		</select>
 		<br>
 		Wartość:

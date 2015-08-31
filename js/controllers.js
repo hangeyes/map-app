@@ -3,7 +3,7 @@ mapApp.controller("infoCtrl", function($scope, $http) {
 	var geojson;
 	$http.get("http://hangeyes.pl/mapApp/geoJSON.json").success(function(response) {
 		$scope.objects = response.features;
-		$scope.properties = response.features[0].properties;
+		$scope.properties = response.features[1].properties;
 		var map = L.map('map').setView([
               52.4102835766679,
               16.8758386862567
@@ -20,6 +20,7 @@ mapApp.controller("infoCtrl", function($scope, $http) {
 		},
 		onEachFeature: onEachFeature
 	} ).addTo(map);
+	console.log($scope.objects[0].properties.name);
 	});
 	
 	$scope.labels = [];
@@ -39,6 +40,21 @@ mapApp.controller("infoCtrl", function($scope, $http) {
 		$scope.sum = sum;
 		$scope.avg = sum/$scope.objects.length;
 		$scope.data = [dataSet];
+		$scope.labels = labelSet;
+		if($scope.selectedObject) {
+			labelSet = [];
+			angular.forEach($scope.objects, function(value, key) { 
+				labelSet.push(value.properties[$scope.selectedObject]);
+			});
+			$scope.labels = labelSet;
+		};
+	};
+	
+	$scope.changeLabels = function() {
+		var labelSet = [];
+		angular.forEach($scope.objects, function(value, key) { 
+			labelSet.push(value.properties[$scope.selectedObject]);
+		});
 		$scope.labels = labelSet;
 	};
 	
@@ -63,15 +79,12 @@ mapApp.controller("infoCtrl", function($scope, $http) {
 
 	function onClick(e) {
 		var dataSet = [];
-		$scope.labels = [];
 		angular.forEach($scope.objects, function(value, key) {
 			if(e.target.feature.id == value.id) {
-				dataSet.push(parseFloat(value.properties[$scope.selectedItem]));
-				
+				dataSet.push(parseFloat(value.properties[$scope.selectedItem]));	
 			} else {
 				dataSet.push(0);
 			}
-			$scope.labels.push(value.id);
 		});
 		$scope.data = [dataSet];
 		$scope.$apply();
