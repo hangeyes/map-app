@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html ng-app="mapApp">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<script src="js/libs/angular.js"></script>
+		<script src="js/libs/Chart.min.js"></script>
+		<script src="js/libs/angular-chart.js/angular-chart.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+		<script src="js/controllers.js"></script>
+		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+		<style type="text/css" src="js/libs/angular-chart.js/angular-chart.css">
+		body {
+			font-family: "helvetica";
+			color : #333;
+		}
+		[ac-chart] {
+			float:left;
+			width: 48%;
+			height: 400px;
+			margin: 0 1%;
+		}
+	</style>
+	</head>
+	<body ng-controller="infoCtrl">
+		Nazwa: 
+		<select ng-model="selectedObject">
+			<option ng-repeat="(key, data) in objects" value="{{key}}">{{data.id}}</option>
+		</select>
+		<br>
+		Wartość:
+		<select ng-model="selectedItem" ng-change="changeOption()">
+			<option ng-repeat="(key, data) in properties" value="{{key}}">{{key}}</option>
+		</select>
+		<div>
+			Podsumowanie:
+			<br>
+			suma wartości: {{sum}}
+			<br>
+			średnia wartość: {{avg}}
+		</div>
+		<div id="map" style="height: 400px;"></div>
+		<canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels"></canvas>
+	</body>
+</html>
