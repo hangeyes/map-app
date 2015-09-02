@@ -1,7 +1,7 @@
 var mapApp = angular.module("mapApp", ['chart.js']);
 mapApp.controller("infoCtrl", function($scope, $http) {
 	var geojson;
-	$http.get("http://hangeyes.pl/mapApp/geoJSON.json").success(function(response) {
+	$http.get("http://divi.gis-support.pl/api/features/OQ.7kYuqmYHgl8H1fa2vFxavO2Eu8w").success(function(response) {
 		$scope.objects = response.features;
 		$scope.properties = response.features[1].properties;
 		var map = L.map('map').setView([
