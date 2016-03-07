@@ -1,14 +1,14 @@
 var mapApp = angular.module("mapApp", ['chart.js']);
 mapApp.controller("infoCtrl", function($scope, $http) {
 	var geojson;
-	$http.get("http://divi.gis-support.pl/api/features/OQ.7kYuqmYHgl8H1fa2vFxavO2Eu8w").success(function(response) {
+	$http.get("").success(function(response) {
 		$scope.objects = response.features;
 		$scope.properties = response.features[1].properties;
 		var map = L.map('map').setView([
               52.4102835766679,
               16.8758386862567
             ], 14);
-	L.tileLayer('http://api.gis-support.pl/v1/maptile/0062ea45e2b9e7957211ef97a9791b71/tiles/inwestor/webmercator/{z}/{x}/{y}.png', {
+	L.tileLayer('', {
   		attribution: "Dane © OpenStreetMap.org, hosting i grafika GIS Support ",
   		maxZoom: 18
   }).addTo(map);
